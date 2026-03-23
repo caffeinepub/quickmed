@@ -1,0 +1,87 @@
+@import url("https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap");
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --radius: 0.75rem;
+
+    /* Primary blue #147EAD */
+    --primary: 0.55 0.1 216;
+    --primary-foreground: 1 0 0;
+
+    /* Darker blue #0E5E86 */
+    --primary-dark: 0.43 0.09 218;
+
+    /* Light blue panel #DFF0FB */
+    --section-blue: 0.95 0.03 218;
+
+    /* Backgrounds */
+    --background: 1 0 0;
+    --foreground: 0.14 0.005 250;
+
+    /* Cards */
+    --card: 1 0 0;
+    --card-foreground: 0.14 0.005 250;
+
+    /* Popover */
+    --popover: 1 0 0;
+    --popover-foreground: 0.14 0.005 250;
+
+    /* Secondary */
+    --secondary: 0.95 0.03 218;
+    --secondary-foreground: 0.43 0.09 218;
+
+    /* Muted */
+    --muted: 0.97 0.005 250;
+    --muted-foreground: 0.55 0.01 250;
+
+    /* Accent */
+    --accent: 0.95 0.03 218;
+    --accent-foreground: 0.43 0.09 218;
+
+    /* Destructive */
+    --destructive: 0.577 0.245 27.325;
+    --destructive-foreground: 1 0 0;
+
+    /* Borders */
+    --border: 0.91 0.01 250;
+    --input: 0.91 0.01 250;
+    --ring: 0.55 0.1 216;
+
+    /* Safety colors */
+    --safe-bg: 0.97 0.025 145;
+    --safe-text: 0.38 0.08 145;
+    --caution-bg: 0.98 0.03 85;
+    --caution-text: 0.5 0.12 75;
+    --avoid-bg: 0.97 0.025 20;
+    --avoid-text: 0.52 0.18 25;
+
+    /* Chart */
+    --chart-1: 0.646 0.222 41.116;
+    --chart-2: 0.55 0.1 216;
+    --chart-3: 0.43 0.09 218;
+    --chart-4: 0.828 0.189 84.429;
+    --chart-5: 0.769 0.188 70.08;
+
+    /* Sidebar */
+    --sidebar: 1 0 0;
+    --sidebar-foreground: 0.14 0.005 250;
+    --sidebar-primary: 0.55 0.1 216;
+    --sidebar-primary-foreground: 1 0 0;
+    --sidebar-accent: 0.95 0.03 218;
+    --sidebar-accent-foreground: 0.43 0.09 218;
+    --sidebar-border: 0.91 0.01 250;
+    --sidebar-ring: 0.55 0.1 216;
+  }
+
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground font-sans;
+    scroll-behavior: smooth;
+  }
+}
