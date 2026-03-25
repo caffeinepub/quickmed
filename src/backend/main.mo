@@ -169,7 +169,7 @@ actor {
     {
       name = "Bismuth Subsalicylate";
       brandName = "Pepto-Bismol";
-      symptoms = ["Nausea", "Diarrhea", "Heartburn", "Stomach Upset", "Indigestion", "Vomiting", "Stomach Cramps", "Gas"];
+      symptoms = ["Nausea", "Diarrhea", "Heartburn", "Stomach Upset", "Indigestion", "Vomiting", "Stomach Cramps", "Gas", "Acidity"];
       minAge = 12;
       pregnancySafe = ?false;
       allergyNotes = ["Salicylates"];
@@ -247,7 +247,7 @@ actor {
     {
       name = "Calcium Carbonate";
       brandName = "Tums";
-      symptoms = ["Heartburn", "Acid Indigestion", "Indigestion", "Stomach Upset", "Acid Reflux"];
+      symptoms = ["Heartburn", "Acid Indigestion", "Indigestion", "Stomach Upset", "Acid Reflux", "Acidity"];
       minAge = 0;
       pregnancySafe = ?true;
       allergyNotes = ["Calcium"];
@@ -260,7 +260,7 @@ actor {
     {
       name = "Ranitidine";
       brandName = "Zantac";
-      symptoms = ["Heartburn", "Acid Reflux", "Stomach Ulcer", "Indigestion", "Acid Indigestion"];
+      symptoms = ["Heartburn", "Acid Reflux", "Stomach Ulcer", "Indigestion", "Acid Indigestion", "Acidity"];
       minAge = 0;
       pregnancySafe = null;
       allergyNotes = [];
@@ -299,7 +299,7 @@ actor {
     {
       name = "Famotidine";
       brandName = "Pepcid";
-      symptoms = ["Heartburn", "Acid Reflux", "Indigestion", "Acid Indigestion", "Stomach Upset"];
+      symptoms = ["Heartburn", "Acid Reflux", "Indigestion", "Acid Indigestion", "Stomach Upset", "Acidity"];
       minAge = 12;
       pregnancySafe = ?true;
       allergyNotes = [];
@@ -321,6 +321,19 @@ actor {
       warnings = "No significant side effects.";
       avoidIf = "Severe gastrointestinal disorders.";
       consultDoctorIf = "Bloating persists.";
+    },
+    {
+      name = "Omeprazole";
+      brandName = "Prilosec OTC";
+      symptoms = ["Acidity", "Heartburn", "Acid Reflux", "Acid Indigestion", "GERD", "Sour Stomach", "Stomach Burning"];
+      minAge = 18;
+      pregnancySafe = null;
+      allergyNotes = [];
+      dosageInstructions = "Adults: 20mg once daily before eating for 14 days. Do not use for more than 14 days without consulting a doctor.";
+      safetyLevel = #caution;
+      warnings = "OTC use is limited to 14-day courses (up to 3 courses per year). May mask symptoms of serious conditions.";
+      avoidIf = "Allergy to proton pump inhibitors.";
+      consultDoctorIf = "Symptoms persist after 14 days, you have trouble swallowing, or you are vomiting blood.";
     },
     {
       name = "Benzocaine";
@@ -834,6 +847,13 @@ actor {
       interactionType = "Drug-Drug";
       severity = #severe;
       explanation = "Can cause dangerously high blood pressure when combined.";
+    },
+    {
+      drug1 = "Omeprazole";
+      drug2 = "Clopidogrel";
+      interactionType = "Drug-Drug";
+      severity = #moderate;
+      explanation = "Omeprazole can reduce the effectiveness of clopidogrel (a blood thinner). Consult your doctor if you take both.";
     },
   ]);
 

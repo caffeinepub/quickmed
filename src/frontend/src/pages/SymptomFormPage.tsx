@@ -11,6 +11,7 @@ import {
 import {
   AlertTriangle,
   ArrowLeft,
+  ChevronDown,
   Loader2,
   Plus,
   Search,
@@ -34,14 +35,18 @@ export interface FormData {
   allergies: string[];
 }
 
+const BATCH_SIZE = 20;
+
 export default function SymptomFormPage({
   onBack,
   onResults,
 }: SymptomFormPageProps) {
   const { data: allSymptoms, isLoading: symptomsLoading } = useGetAllSymptoms();
+  const isLoadingSymptoms = symptomsLoading || allSymptoms === undefined;
   const getRecommendations = useGetRecommendations();
 
   const [selectedSymptoms, setSelectedSymptoms] = useState<string[]>([]);
+  const [visibleCount, setVisibleCount] = useState(BATCH_SIZE);
   const [age, setAge] = useState("");
   const [gender, setGender] = useState("");
   const [pregnancyStatus, setPregnancyStatus] = useState("not_pregnant");
@@ -94,6 +99,10 @@ export default function SymptomFormPage({
     }
   };
 
+  const totalSymptoms = allSymptoms?.length ?? 0;
+  const remaining = totalSymptoms - visibleCount;
+  const hasMore = visibleCount < totalSymptoms;
+
   return (
     <div className="min-h-screen flex flex-col">
       <header className="sticky top-0 z-20 bg-white/95 backdrop-blur border-b border-border px-4 py-3">
@@ -136,7 +145,7 @@ export default function SymptomFormPage({
               )}
             </div>
 
-            {symptomsLoading ? (
+            {isLoadingSymptoms ? (
               <div
                 className="flex items-center gap-2 text-muted-foreground"
                 data-ocid="form.loading_state"
@@ -145,26 +154,45 @@ export default function SymptomFormPage({
                 <span className="text-sm">Loading symptoms...</span>
               </div>
             ) : (
-              <div className="flex flex-wrap gap-2" data-ocid="form.panel">
-                {(allSymptoms ?? []).map((symptom) => (
-                  <button
-                    key={symptom}
-                    type="button"
-                    onClick={() => toggleSymptom(symptom)}
-                    data-ocid="form.toggle"
-                    className={`px-3 py-1.5 rounded-full text-sm font-medium border transition-all select-none ${
-                      selectedSymptoms.includes(symptom)
-                        ? "bg-primary text-primary-foreground border-primary shadow-xs"
-                        : "bg-white text-foreground border-border hover:border-primary hover:bg-section-blue"
-                    }`}
-                  >
-                    {symptom}
-                  </button>
-                ))}
-              </div>
+              <>
+                <div className="flex flex-wrap gap-2" data-ocid="form.panel">
+                  {(allSymptoms ?? []).slice(0, visibleCount).map((symptom) => (
+                    <button
+                      key={symptom}
+                      type="button"
+                      onClick={() => toggleSymptom(symptom)}
+                      data-ocid="form.toggle"
+                      className={`px-3 py-1.5 rounded-full text-sm font-medium border transition-all select-none ${
+                        selectedSymptoms.includes(symptom)
+                          ? "bg-primary text-primary-foreground border-primary shadow-xs"
+                          : "bg-white text-foreground border-border hover:border-primary hover:bg-section-blue"
+                      }`}
+                    >
+                      {symptom}
+                    </button>
+                  ))}
+                </div>
+
+                {hasMore && (
+                  <div className="flex justify-center mt-4">
+                    <Button
+                      variant="outline"
+                      type="button"
+                      onClick={() =>
+                        setVisibleCount((prev) => prev + BATCH_SIZE)
+                      }
+                      data-ocid="form.secondary_button"
+                      className="gap-2 text-sm"
+                    >
+                      <ChevronDown className="w-4 h-4" />
+                      Load More Symptoms (+{remaining} more)
+                    </Button>
+                  </div>
+                )}
+              </>
             )}
 
-            {selectedSymptoms.length === 0 && (
+            {!isLoadingSymptoms && selectedSymptoms.length === 0 && (
               <p className="text-xs text-muted-foreground mt-2">
                 Select at least one symptom to continue.
               </p>
