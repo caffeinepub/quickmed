@@ -3,15 +3,24 @@ import type { Interaction, OTCMedicine } from "../backend.d";
 import { useActor } from "./useActor";
 
 export function useGetAllSymptoms() {
-  const { actor, isFetching } = useActor();
-  return useQuery<string[]>({
-    queryKey: ["symptoms"],
+  const { actor, isFetching: actorFetching } = useActor();
+  const query = useQuery<string[]>({
+    queryKey: ["symptoms", actor ? "ready" : "waiting"],
     queryFn: async () => {
-      if (!actor) return [];
-      return actor.getAllSymptoms();
+      if (!actor) throw new Error("Actor not ready");
+      const result = await actor.getAllSymptoms();
+      return result;
     },
-    enabled: !!actor && !isFetching,
+    enabled: !!actor && !actorFetching,
+    retry: 3,
+    retryDelay: 1000,
   });
+
+  return {
+    ...query,
+    // isPending stays true when disabled — use isFetching or actorFetching instead
+    isPending: query.isFetching || actorFetching,
+  };
 }
 
 export function useGetRecommendations() {

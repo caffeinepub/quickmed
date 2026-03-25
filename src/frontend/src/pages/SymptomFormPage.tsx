@@ -41,8 +41,8 @@ export default function SymptomFormPage({
   onBack,
   onResults,
 }: SymptomFormPageProps) {
-  const { data: allSymptoms, isLoading: symptomsLoading } = useGetAllSymptoms();
-  const isLoadingSymptoms = symptomsLoading || allSymptoms === undefined;
+  const { data: allSymptoms, isPending: symptomsLoading } = useGetAllSymptoms();
+  const isLoadingSymptoms = symptomsLoading;
   const getRecommendations = useGetRecommendations();
 
   const [selectedSymptoms, setSelectedSymptoms] = useState<string[]>([]);
