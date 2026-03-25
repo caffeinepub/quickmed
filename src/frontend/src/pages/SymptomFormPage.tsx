@@ -42,8 +42,7 @@ export default function SymptomFormPage({
   const getRecommendations = useGetRecommendations();
 
   const [selectedSymptoms, setSelectedSymptoms] = useState<string[]>([]);
-  const [customSymptoms, setCustomSymptoms] = useState<string[]>([]);
-  const [customSymptomInput, setCustomSymptomInput] = useState("");
+  const [symptomSearch, setSymptomSearch] = useState("");
   const [age, setAge] = useState("");
   const [gender, setGender] = useState("");
   const [pregnancyStatus, setPregnancyStatus] = useState("not_pregnant");
@@ -59,36 +58,6 @@ export default function SymptomFormPage({
     );
   };
 
-  const addCustomSymptom = () => {
-    const trimmed = customSymptomInput.trim();
-    if (!trimmed) return;
-    const capitalized = trimmed
-      .split(" ")
-      .map((w) => w.charAt(0).toUpperCase() + w.slice(1))
-      .join(" ");
-    const existsInAll = (allSymptoms ?? []).some(
-      (s) => s.toLowerCase() === capitalized.toLowerCase(),
-    );
-    const existsInCustom = customSymptoms.some(
-      (s) => s.toLowerCase() === capitalized.toLowerCase(),
-    );
-    if (!existsInAll && !existsInCustom) {
-      setCustomSymptoms((prev) => [...prev, capitalized]);
-      setSelectedSymptoms((prev) => [...prev, capitalized]);
-    } else if (existsInAll) {
-      // Just select it if it already exists in main list
-      if (!selectedSymptoms.includes(capitalized)) {
-        setSelectedSymptoms((prev) => [...prev, capitalized]);
-      }
-    }
-    setCustomSymptomInput("");
-  };
-
-  const removeCustomSymptom = (symptom: string) => {
-    setCustomSymptoms((prev) => prev.filter((s) => s !== symptom));
-    setSelectedSymptoms((prev) => prev.filter((s) => s !== symptom));
-  };
-
   const addAllergy = () => {
     const trimmed = allergyInput.trim();
     if (trimmed && !allergies.includes(trimmed)) {
@@ -100,6 +69,10 @@ export default function SymptomFormPage({
   const removeAllergy = (a: string) => {
     setAllergies((prev) => prev.filter((x) => x !== a));
   };
+
+  const filteredSymptoms = (allSymptoms ?? []).filter((s) =>
+    s.toLowerCase().includes(symptomSearch.toLowerCase()),
+  );
 
   const canSubmit =
     selectedSymptoms.length > 0 && age.trim() !== "" && Number(age) > 0;
@@ -156,6 +129,19 @@ export default function SymptomFormPage({
             <Label className="text-base font-semibold mb-3 block">
               Symptoms <span className="text-destructive">*</span>
             </Label>
+
+            {/* Symptom search */}
+            <div className="relative max-w-md mb-3">
+              <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground pointer-events-none" />
+              <Input
+                placeholder="Search symptoms..."
+                value={symptomSearch}
+                onChange={(e) => setSymptomSearch(e.target.value)}
+                className="pl-9"
+                data-ocid="form.search_input"
+              />
+            </div>
+
             {symptomsLoading ? (
               <div
                 className="flex items-center gap-2 text-muted-foreground"
@@ -166,7 +152,7 @@ export default function SymptomFormPage({
               </div>
             ) : (
               <div className="flex flex-wrap gap-2" data-ocid="form.panel">
-                {(allSymptoms ?? []).map((symptom) => (
+                {filteredSymptoms.map((symptom) => (
                   <button
                     key={symptom}
                     type="button"
@@ -181,51 +167,13 @@ export default function SymptomFormPage({
                     {symptom}
                   </button>
                 ))}
-                {/* Custom symptom pills */}
-                {customSymptoms.map((symptom) => (
-                  <span
-                    key={symptom}
-                    className="flex items-center gap-1 px-3 py-1.5 rounded-full text-sm font-medium border bg-primary text-primary-foreground border-primary shadow-xs"
-                  >
-                    {symptom}
-                    <button
-                      type="button"
-                      onClick={() => removeCustomSymptom(symptom)}
-                      className="hover:opacity-70 ml-0.5"
-                      data-ocid="form.delete_button"
-                      aria-label={`Remove ${symptom}`}
-                    >
-                      <X className="w-3 h-3" />
-                    </button>
-                  </span>
-                ))}
+                {filteredSymptoms.length === 0 && (
+                  <p className="text-sm text-muted-foreground">
+                    No symptoms match your search.
+                  </p>
+                )}
               </div>
             )}
-
-            {/* Add custom symptom input */}
-            <div className="flex gap-2 mt-3 max-w-md">
-              <Input
-                placeholder="Add your own symptom..."
-                value={customSymptomInput}
-                onChange={(e) => setCustomSymptomInput(e.target.value)}
-                onKeyDown={(e) => {
-                  if (e.key === "Enter") {
-                    e.preventDefault();
-                    addCustomSymptom();
-                  }
-                }}
-                data-ocid="form.input"
-              />
-              <Button
-                variant="outline"
-                onClick={addCustomSymptom}
-                type="button"
-                data-ocid="form.secondary_button"
-                aria-label="Add custom symptom"
-              >
-                <Plus className="w-4 h-4" />
-              </Button>
-            </div>
 
             {selectedSymptoms.length === 0 && (
               <p className="text-xs text-muted-foreground mt-2">

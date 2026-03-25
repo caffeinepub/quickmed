@@ -65,7 +65,7 @@ actor {
     {
       name = "Acetaminophen";
       brandName = "Tylenol";
-      symptoms = ["Pain", "Fever", "Headache", "Body Ache", "Muscle Pain", "Back Pain"];
+      symptoms = ["Pain", "Fever", "Headache", "Body Ache", "Muscle Pain", "Back Pain", "Toothache", "Menstrual Cramps", "Migraine", "Sore Throat", "Earache", "Minor Injury Pain"];
       minAge = 0;
       pregnancySafe = ?true;
       allergyNotes = [];
@@ -78,7 +78,7 @@ actor {
     {
       name = "Ibuprofen";
       brandName = "Advil";
-      symptoms = ["Pain", "Fever", "Inflammation", "Headache", "Body Ache", "Muscle Pain", "Joint Pain", "Back Pain"];
+      symptoms = ["Pain", "Fever", "Inflammation", "Headache", "Body Ache", "Muscle Pain", "Joint Pain", "Back Pain", "Toothache", "Menstrual Cramps", "Migraine", "Swelling", "Minor Injury Pain", "Arthritis Pain"];
       minAge = 6;
       pregnancySafe = ?false;
       allergyNotes = ["NSAIDs"];
@@ -91,7 +91,7 @@ actor {
     {
       name = "Aspirin";
       brandName = "Bayer Aspirin";
-      symptoms = ["Pain", "Fever", "Headache", "Body Ache", "Muscle Pain", "Inflammation"];
+      symptoms = ["Pain", "Fever", "Headache", "Body Ache", "Muscle Pain", "Inflammation", "Migraine", "Toothache"];
       minAge = 12;
       pregnancySafe = ?false;
       allergyNotes = ["Salicylates", "NSAIDs"];
@@ -104,7 +104,7 @@ actor {
     {
       name = "Naproxen";
       brandName = "Aleve";
-      symptoms = ["Pain", "Body Ache", "Muscle Pain", "Joint Pain", "Back Pain", "Headache", "Fever", "Inflammation"];
+      symptoms = ["Pain", "Body Ache", "Muscle Pain", "Joint Pain", "Back Pain", "Headache", "Fever", "Inflammation", "Menstrual Cramps", "Arthritis Pain", "Swelling", "Migraine"];
       minAge = 12;
       pregnancySafe = ?false;
       allergyNotes = ["NSAIDs"];
@@ -117,7 +117,7 @@ actor {
     {
       name = "Pseudoephedrine";
       brandName = "Sudafed";
-      symptoms = ["Nasal Congestion", "Sinus Pressure"];
+      symptoms = ["Nasal Congestion", "Sinus Pressure", "Stuffy Nose", "Sinus Congestion", "Cold", "Flu"];
       minAge = 12;
       pregnancySafe = null;
       allergyNotes = [];
@@ -130,7 +130,7 @@ actor {
     {
       name = "Loratadine";
       brandName = "Claritin";
-      symptoms = ["Allergy", "Hay Fever", "Runny Nose", "Itchy Eyes"];
+      symptoms = ["Allergy", "Hay Fever", "Runny Nose", "Itchy Eyes", "Sneezing", "Watery Eyes", "Seasonal Allergies", "Skin Rash", "Hives", "Nasal Congestion"];
       minAge = 2;
       pregnancySafe = ?true;
       allergyNotes = [];
@@ -141,9 +141,35 @@ actor {
       consultDoctorIf = "Pregnant or breastfeeding.";
     },
     {
+      name = "Cetirizine";
+      brandName = "Zyrtec";
+      symptoms = ["Allergy", "Hay Fever", "Runny Nose", "Itchy Eyes", "Sneezing", "Watery Eyes", "Seasonal Allergies", "Hives", "Skin Rash", "Nasal Congestion", "Itchy Skin"];
+      minAge = 2;
+      pregnancySafe = null;
+      allergyNotes = [];
+      dosageInstructions = "Adults/Children over 6: 5-10mg once daily.";
+      safetyLevel = #safe;
+      warnings = "May cause mild drowsiness in some people.";
+      avoidIf = "Severe kidney disease.";
+      consultDoctorIf = "Pregnant or breastfeeding.";
+    },
+    {
+      name = "Fexofenadine";
+      brandName = "Allegra";
+      symptoms = ["Allergy", "Hay Fever", "Runny Nose", "Itchy Eyes", "Sneezing", "Seasonal Allergies", "Hives", "Watery Eyes"];
+      minAge = 2;
+      pregnancySafe = null;
+      allergyNotes = [];
+      dosageInstructions = "Adults/Children over 12: 180mg once daily or 60mg twice daily.";
+      safetyLevel = #safe;
+      warnings = "Non-drowsy formula. Avoid with fruit juices that can reduce absorption.";
+      avoidIf = "Severe kidney disease.";
+      consultDoctorIf = "Pregnant or breastfeeding.";
+    },
+    {
       name = "Bismuth Subsalicylate";
       brandName = "Pepto-Bismol";
-      symptoms = ["Nausea", "Diarrhea", "Heartburn", "Stomach Upset"];
+      symptoms = ["Nausea", "Diarrhea", "Heartburn", "Stomach Upset", "Indigestion", "Vomiting", "Stomach Cramps", "Gas"];
       minAge = 12;
       pregnancySafe = ?false;
       allergyNotes = ["Salicylates"];
@@ -156,7 +182,7 @@ actor {
     {
       name = "Loperamide";
       brandName = "Imodium";
-      symptoms = ["Diarrhea"];
+      symptoms = ["Diarrhea", "Loose Stool", "Stomach Cramps"];
       minAge = 6;
       pregnancySafe = null;
       allergyNotes = [];
@@ -169,7 +195,7 @@ actor {
     {
       name = "Dextromethorphan";
       brandName = "Robitussin";
-      symptoms = ["Cough"];
+      symptoms = ["Cough", "Dry Cough", "Chest Congestion"];
       minAge = 6;
       pregnancySafe = null;
       allergyNotes = [];
@@ -182,7 +208,7 @@ actor {
     {
       name = "Acetaminophen/Dextromethorphan/Doxylamine";
       brandName = "NyQuil";
-      symptoms = ["Cold", "Flu", "Cough", "Fever", "Sinus Pressure", "Body Ache"];
+      symptoms = ["Cold", "Flu", "Cough", "Fever", "Sinus Pressure", "Body Ache", "Runny Nose", "Sneezing", "Sore Throat", "Insomnia"];
       minAge = 12;
       pregnancySafe = ?false;
       allergyNotes = [];
@@ -195,7 +221,7 @@ actor {
     {
       name = "Acetaminophen/Dextromethorphan/Phenylephrine";
       brandName = "DayQuil";
-      symptoms = ["Cold", "Flu", "Cough", "Fever", "Sinus Pressure", "Body Ache"];
+      symptoms = ["Cold", "Flu", "Cough", "Fever", "Sinus Pressure", "Body Ache", "Nasal Congestion", "Runny Nose", "Sore Throat"];
       minAge = 12;
       pregnancySafe = ?false;
       allergyNotes = [];
@@ -208,7 +234,7 @@ actor {
     {
       name = "Diphenhydramine";
       brandName = "Benadryl";
-      symptoms = ["Allergy", "Runny Nose", "Itchy Eyes", "Cough"];
+      symptoms = ["Allergy", "Runny Nose", "Itchy Eyes", "Cough", "Hives", "Skin Rash", "Itchy Skin", "Sneezing", "Insomnia", "Motion Sickness"];
       minAge = 6;
       pregnancySafe = null;
       allergyNotes = [];
@@ -221,7 +247,7 @@ actor {
     {
       name = "Calcium Carbonate";
       brandName = "Tums";
-      symptoms = ["Heartburn", "Acid Indigestion"];
+      symptoms = ["Heartburn", "Acid Indigestion", "Indigestion", "Stomach Upset", "Acid Reflux"];
       minAge = 0;
       pregnancySafe = ?true;
       allergyNotes = ["Calcium"];
@@ -234,7 +260,7 @@ actor {
     {
       name = "Ranitidine";
       brandName = "Zantac";
-      symptoms = ["Heartburn", "Acid Reflux", "Stomach Ulcer"];
+      symptoms = ["Heartburn", "Acid Reflux", "Stomach Ulcer", "Indigestion", "Acid Indigestion"];
       minAge = 0;
       pregnancySafe = null;
       allergyNotes = [];
@@ -247,7 +273,7 @@ actor {
     {
       name = "Guaifenesin";
       brandName = "Mucinex";
-      symptoms = ["Cough", "Chest Congestion"];
+      symptoms = ["Cough", "Chest Congestion", "Mucus", "Phlegm", "Productive Cough"];
       minAge = 6;
       pregnancySafe = null;
       allergyNotes = [];
@@ -258,22 +284,9 @@ actor {
       consultDoctorIf = "Cough persists more than 7 days.";
     },
     {
-      name = "Acetaminophen/Dextromethorphan/Phenylephrine";
-      brandName = "Theraflu";
-      symptoms = ["Cold", "Flu", "Cough", "Fever", "Body Ache"];
-      minAge = 12;
-      pregnancySafe = ?false;
-      allergyNotes = [];
-      dosageInstructions = "Adults: 1 packet every 4 hours. Max 5 packets/day.";
-      safetyLevel = #caution;
-      warnings = "May cause drowsiness and dizziness.";
-      avoidIf = "High blood pressure or thyroid disorder.";
-      consultDoctorIf = "Symptoms persist more than 7 days.";
-    },
-    {
       name = "Menthol";
       brandName = "Vicks VapoRub";
-      symptoms = ["Cough", "Congestion"];
+      symptoms = ["Cough", "Congestion", "Nasal Congestion", "Chest Congestion", "Cold", "Sore Muscles"];
       minAge = 2;
       pregnancySafe = ?true;
       allergyNotes = ["Menthol"];
@@ -286,7 +299,7 @@ actor {
     {
       name = "Famotidine";
       brandName = "Pepcid";
-      symptoms = ["Heartburn", "Acid Reflux"];
+      symptoms = ["Heartburn", "Acid Reflux", "Indigestion", "Acid Indigestion", "Stomach Upset"];
       minAge = 12;
       pregnancySafe = ?true;
       allergyNotes = [];
@@ -299,7 +312,7 @@ actor {
     {
       name = "Simethicone";
       brandName = "Gas-X";
-      symptoms = ["Gas", "Bloating"];
+      symptoms = ["Gas", "Bloating", "Flatulence", "Stomach Cramps", "Indigestion"];
       minAge = 0;
       pregnancySafe = ?true;
       allergyNotes = [];
@@ -310,9 +323,22 @@ actor {
       consultDoctorIf = "Bloating persists.";
     },
     {
+      name = "Benzocaine";
+      brandName = "Orajel";
+      symptoms = ["Toothache", "Gum Pain", "Mouth Sore", "Canker Sore", "Sore Throat", "Teething Pain"];
+      minAge = 2;
+      pregnancySafe = null;
+      allergyNotes = ["Local anesthetics"];
+      dosageInstructions = "Apply small amount directly to affected area up to 4 times daily.";
+      safetyLevel = #caution;
+      warnings = "Do not swallow. Use sparingly. Avoid in infants under 2 for gum use.";
+      avoidIf = "Allergy to benzocaine or local anesthetics.";
+      consultDoctorIf = "Toothache persists more than 2 days.";
+    },
+    {
       name = "Chloraseptic";
       brandName = "Chloraseptic";
-      symptoms = ["Sore Throat"];
+      symptoms = ["Sore Throat", "Throat Pain", "Throat Irritation", "Mouth Sore"];
       minAge = 6;
       pregnancySafe = null;
       allergyNotes = [];
@@ -321,6 +347,357 @@ actor {
       warnings = "For short-term use only.";
       avoidIf = "Allergy to ingredients.";
       consultDoctorIf = "Sore throat lasts over 2 days.";
+    },
+    {
+      name = "Polyethylene Glycol 3350";
+      brandName = "MiraLAX";
+      symptoms = ["Constipation", "Irregular Bowel Movement", "Hard Stool", "Bloating"];
+      minAge = 17;
+      pregnancySafe = null;
+      allergyNotes = [];
+      dosageInstructions = "Adults: 17g (1 capful) dissolved in 4-8oz of liquid once daily.";
+      safetyLevel = #safe;
+      warnings = "Drink plenty of fluids. May take 1-3 days to work.";
+      avoidIf = "Bowel obstruction.";
+      consultDoctorIf = "No bowel movement after 7 days.";
+    },
+    {
+      name = "Docusate Sodium";
+      brandName = "Colace";
+      symptoms = ["Constipation", "Hard Stool", "Straining During Bowel Movement"];
+      minAge = 2;
+      pregnancySafe = ?true;
+      allergyNotes = [];
+      dosageInstructions = "Adults: 50-300mg per day. Children: 10-40mg per day.";
+      safetyLevel = #safe;
+      warnings = "Stool softener only; may take 1-3 days to work.";
+      avoidIf = "Abdominal pain or nausea of unknown cause.";
+      consultDoctorIf = "Constipation persists more than 1 week.";
+    },
+    {
+      name = "Doxylamine Succinate";
+      brandName = "Unisom";
+      symptoms = ["Insomnia", "Difficulty Sleeping", "Sleep Problems", "Restlessness"];
+      minAge = 12;
+      pregnancySafe = ?true;
+      allergyNotes = [];
+      dosageInstructions = "Adults: 25mg 30 minutes before bedtime.";
+      safetyLevel = #caution;
+      warnings = "May cause next-day drowsiness. Avoid alcohol and driving.";
+      avoidIf = "Glaucoma, enlarged prostate.";
+      consultDoctorIf = "Sleep problems persist more than 2 weeks.";
+    },
+    {
+      name = "Melatonin";
+      brandName = "Natrol";
+      symptoms = ["Insomnia", "Difficulty Sleeping", "Jet Lag", "Sleep Problems"];
+      minAge = 0;
+      pregnancySafe = null;
+      allergyNotes = [];
+      dosageInstructions = "Adults: 0.5-5mg 30 minutes before bedtime.";
+      safetyLevel = #safe;
+      warnings = "May cause drowsiness. Use the lowest effective dose.";
+      avoidIf = "Autoimmune conditions.";
+      consultDoctorIf = "Sleep problems persist more than 2 weeks.";
+    },
+    {
+      name = "Dimenhydrinate";
+      brandName = "Dramamine";
+      symptoms = ["Motion Sickness", "Nausea", "Vomiting", "Dizziness", "Vertigo"];
+      minAge = 2;
+      pregnancySafe = null;
+      allergyNotes = [];
+      dosageInstructions = "Adults: 50-100mg every 4-6 hours. Max 400mg/day.";
+      safetyLevel = #caution;
+      warnings = "May cause drowsiness. Avoid alcohol.";
+      avoidIf = "Glaucoma, enlarged prostate.";
+      consultDoctorIf = "Dizziness or nausea persists.";
+    },
+    {
+      name = "Meclizine";
+      brandName = "Bonine";
+      symptoms = ["Motion Sickness", "Nausea", "Dizziness", "Vertigo"];
+      minAge = 12;
+      pregnancySafe = null;
+      allergyNotes = [];
+      dosageInstructions = "Adults: 25-50mg one hour before travel. Repeat every 24 hours.";
+      safetyLevel = #caution;
+      warnings = "May cause drowsiness.";
+      avoidIf = "Glaucoma, enlarged prostate.";
+      consultDoctorIf = "Vertigo or dizziness is severe.";
+    },
+    {
+      name = "Excedrin Migraine";
+      brandName = "Excedrin";
+      symptoms = ["Migraine", "Headache", "Pain", "Tension Headache"];
+      minAge = 12;
+      pregnancySafe = ?false;
+      allergyNotes = ["Aspirin", "Caffeine", "NSAIDs"];
+      dosageInstructions = "Adults: 2 tablets every 6 hours. Max 8 tablets/day.";
+      safetyLevel = #caution;
+      warnings = "Contains aspirin, acetaminophen, and caffeine. Avoid in pregnancy.";
+      avoidIf = "Children under 12, pregnancy, allergy to aspirin.";
+      consultDoctorIf = "Migraines are severe, frequent, or worsening.";
+    },
+    {
+      name = "Hydrocortisone Cream";
+      brandName = "Cortaid";
+      symptoms = ["Skin Rash", "Itchy Skin", "Eczema", "Insect Bites", "Hives", "Contact Dermatitis", "Redness", "Minor Skin Irritation"];
+      minAge = 2;
+      pregnancySafe = null;
+      allergyNotes = ["Corticosteroids"];
+      dosageInstructions = "Apply thin layer to affected area 2-4 times daily.";
+      safetyLevel = #caution;
+      warnings = "Avoid prolonged use on face. Do not use on infected skin.";
+      avoidIf = "Viral or fungal skin infections.";
+      consultDoctorIf = "Rash persists more than 7 days or worsens.";
+    },
+    {
+      name = "Clotrimazole";
+      brandName = "Lotrimin";
+      symptoms = ["Athlete's Foot", "Jock Itch", "Ringworm", "Fungal Infection", "Itchy Skin"];
+      minAge = 2;
+      pregnancySafe = null;
+      allergyNotes = [];
+      dosageInstructions = "Apply to affected area twice daily for 4 weeks.";
+      safetyLevel = #safe;
+      warnings = "For external use only. Complete full course of treatment.";
+      avoidIf = "Deep skin infections.";
+      consultDoctorIf = "Condition does not improve after 4 weeks.";
+    },
+    {
+      name = "Miconazole";
+      brandName = "Monistat";
+      symptoms = ["Yeast Infection", "Vaginal Itching", "Vaginal Discharge", "Fungal Infection", "Athlete's Foot"];
+      minAge = 12;
+      pregnancySafe = null;
+      allergyNotes = [];
+      dosageInstructions = "Apply as directed on package (1-day, 3-day, or 7-day treatment).";
+      safetyLevel = #caution;
+      warnings = "Consult a doctor before use if you have never had a yeast infection before.";
+      avoidIf = "Fever, pelvic pain, or discharge with unusual odor.";
+      consultDoctorIf = "Symptoms do not improve in 3 days.";
+    },
+    {
+      name = "Docosanol";
+      brandName = "Abreva";
+      symptoms = ["Cold Sore", "Fever Blister", "Lip Blister"];
+      minAge = 12;
+      pregnancySafe = null;
+      allergyNotes = [];
+      dosageInstructions = "Apply to affected area 5 times daily until healed.";
+      safetyLevel = #safe;
+      warnings = "Start treatment at the first sign of a cold sore.";
+      avoidIf = "Allergy to docosanol.";
+      consultDoctorIf = "Cold sore is near eyes or does not heal within 10 days.";
+    },
+    {
+      name = "Phenylephrine (Eye Drops)";
+      brandName = "Visine";
+      symptoms = ["Eye Redness", "Red Eyes", "Eye Irritation", "Bloodshot Eyes"];
+      minAge = 6;
+      pregnancySafe = null;
+      allergyNotes = [];
+      dosageInstructions = "Instill 1-2 drops in affected eye(s) up to 4 times daily.";
+      safetyLevel = #caution;
+      warnings = "Do not use for more than 3 days as it may worsen redness.";
+      avoidIf = "Narrow-angle glaucoma.";
+      consultDoctorIf = "Redness does not improve after 3 days.";
+    },
+    {
+      name = "Carboxymethylcellulose Eye Drops";
+      brandName = "Refresh Tears";
+      symptoms = ["Dry Eyes", "Eye Irritation", "Eye Discomfort", "Burning Eyes", "Gritty Eyes"];
+      minAge = 0;
+      pregnancySafe = ?true;
+      allergyNotes = [];
+      dosageInstructions = "Instill 1-2 drops in affected eye(s) as needed.";
+      safetyLevel = #safe;
+      warnings = "May temporarily blur vision. Wait 15 minutes before wearing contact lenses.";
+      avoidIf = "Allergy to ingredients.";
+      consultDoctorIf = "Eye pain, vision changes, or redness that worsens.";
+    },
+    {
+      name = "Oxymetazoline";
+      brandName = "Afrin";
+      symptoms = ["Nasal Congestion", "Stuffy Nose", "Sinus Congestion", "Sinus Pressure"];
+      minAge = 6;
+      pregnancySafe = null;
+      allergyNotes = [];
+      dosageInstructions = "Adults/Children over 6: 2-3 sprays per nostril every 10-12 hours. Max 2 doses/day.";
+      safetyLevel = #caution;
+      warnings = "Do not use for more than 3 consecutive days. Rebound congestion may occur.";
+      avoidIf = "High blood pressure, heart disease.";
+      consultDoctorIf = "Taking antidepressants or MAO inhibitors.";
+    },
+    {
+      name = "Zinc Pyrithione Shampoo";
+      brandName = "Head & Shoulders";
+      symptoms = ["Dandruff", "Flaky Scalp", "Itchy Scalp", "Seborrheic Dermatitis"];
+      minAge = 2;
+      pregnancySafe = ?true;
+      allergyNotes = [];
+      dosageInstructions = "Use in place of regular shampoo. Lather, leave 1-2 minutes, rinse.";
+      safetyLevel = #safe;
+      warnings = "For external use only.";
+      avoidIf = "Allergy to zinc compounds.";
+      consultDoctorIf = "Scalp condition worsens or does not improve after 4 weeks.";
+    },
+    {
+      name = "Benzoyl Peroxide";
+      brandName = "Clearasil";
+      symptoms = ["Acne", "Pimples", "Blackheads", "Whiteheads"];
+      minAge = 12;
+      pregnancySafe = null;
+      allergyNotes = [];
+      dosageInstructions = "Apply thin layer to affected area 1-2 times daily.";
+      safetyLevel = #caution;
+      warnings = "May bleach fabrics. Start with lower concentration. May cause dryness.";
+      avoidIf = "Allergy to benzoyl peroxide.";
+      consultDoctorIf = "Acne is severe or does not improve after 12 weeks.";
+    },
+    {
+      name = "Salicylic Acid";
+      brandName = "Compound W";
+      symptoms = ["Warts", "Corns", "Calluses", "Acne", "Pimples"];
+      minAge = 12;
+      pregnancySafe = ?false;
+      allergyNotes = ["Salicylates"];
+      dosageInstructions = "Apply to affected area once or twice daily.";
+      safetyLevel = #caution;
+      warnings = "Avoid healthy surrounding skin. For external use only.";
+      avoidIf = "Diabetes, poor circulation, allergy to salicylates.";
+      consultDoctorIf = "Warts are on face or genitals, or do not improve after 12 weeks.";
+    },
+    {
+      name = "Witch Hazel";
+      brandName = "Preparation H Wipes";
+      symptoms = ["Hemorrhoids", "Rectal Itching", "Rectal Pain", "Rectal Bleeding"];
+      minAge = 12;
+      pregnancySafe = ?true;
+      allergyNotes = [];
+      dosageInstructions = "Apply to affected area up to 6 times daily or after each bowel movement.";
+      safetyLevel = #safe;
+      warnings = "For external use only.";
+      avoidIf = "Internal use.";
+      consultDoctorIf = "Rectal bleeding persists or hemorrhoids worsen.";
+    },
+    {
+      name = "Phenylephrine HCl Ointment";
+      brandName = "Preparation H";
+      symptoms = ["Hemorrhoids", "Rectal Itching", "Rectal Pain", "Anal Swelling"];
+      minAge = 12;
+      pregnancySafe = null;
+      allergyNotes = [];
+      dosageInstructions = "Apply to affected area up to 4 times daily.";
+      safetyLevel = #caution;
+      warnings = "Avoid if you have heart disease or high blood pressure.";
+      avoidIf = "High blood pressure, heart disease.";
+      consultDoctorIf = "Rectal bleeding or hemorrhoids persist more than 7 days.";
+    },
+    {
+      name = "Lidocaine";
+      brandName = "Solarcaine";
+      symptoms = ["Sunburn", "Minor Burns", "Minor Cuts", "Skin Irritation", "Insect Bites", "Minor Skin Pain"];
+      minAge = 2;
+      pregnancySafe = null;
+      allergyNotes = ["Local anesthetics"];
+      dosageInstructions = "Apply to affected area 3-4 times daily.";
+      safetyLevel = #safe;
+      warnings = "For external use only.";
+      avoidIf = "Deep wounds or serious burns.";
+      consultDoctorIf = "Burn covers large area or shows signs of infection.";
+    },
+    {
+      name = "Aloe Vera Gel";
+      brandName = "Banana Boat Aloe";
+      symptoms = ["Sunburn", "Minor Burns", "Skin Irritation", "Dry Skin", "Redness"];
+      minAge = 0;
+      pregnancySafe = ?true;
+      allergyNotes = [];
+      dosageInstructions = "Apply liberally to affected skin as needed.";
+      safetyLevel = #safe;
+      warnings = "For external use only. Some people may be allergic to aloe.";
+      avoidIf = "Allergy to aloe vera.";
+      consultDoctorIf = "Burns are severe, cover large areas, or show signs of infection.";
+    },
+    {
+      name = "Nicotine Patch";
+      brandName = "Nicoderm CQ";
+      symptoms = ["Nicotine Craving", "Smoking Cessation", "Withdrawal Symptoms"];
+      minAge = 18;
+      pregnancySafe = ?false;
+      allergyNotes = [];
+      dosageInstructions = "Step 1 (21mg/day) for 6 weeks, Step 2 (14mg/day) for 2 weeks, Step 3 (7mg/day) for 2 weeks.";
+      safetyLevel = #caution;
+      warnings = "Do not smoke while using patch. Remove before MRI.";
+      avoidIf = "Pregnancy, recent heart attack.";
+      consultDoctorIf = "Under 18, pregnant, or have heart disease.";
+    },
+    {
+      name = "Nicotine Gum";
+      brandName = "Nicorette";
+      symptoms = ["Nicotine Craving", "Smoking Cessation", "Withdrawal Symptoms"];
+      minAge = 18;
+      pregnancySafe = ?false;
+      allergyNotes = [];
+      dosageInstructions = "Use 1 piece every 1-2 hours when urge to smoke occurs. Max 24 pieces/day.";
+      safetyLevel = #caution;
+      warnings = "Do not eat or drink 15 minutes before or during use. Chew slowly.";
+      avoidIf = "Pregnancy, dental problems that prevent chewing.";
+      consultDoctorIf = "Under 18 or have serious heart conditions.";
+    },
+    {
+      name = "Mineral Oil Eye Drops";
+      brandName = "Systane";
+      symptoms = ["Dry Eyes", "Eye Discomfort", "Gritty Eyes", "Burning Eyes"];
+      minAge = 0;
+      pregnancySafe = ?true;
+      allergyNotes = [];
+      dosageInstructions = "Instill 1-2 drops in affected eye(s) as needed.";
+      safetyLevel = #safe;
+      warnings = "Temporary blurred vision may occur.";
+      avoidIf = "Allergy to ingredients.";
+      consultDoctorIf = "Eye pain or vision changes occur.";
+    },
+    {
+      name = "Debrox";
+      brandName = "Debrox";
+      symptoms = ["Ear Wax", "Ear Blockage", "Earache", "Ear Discomfort", "Plugged Ear"];
+      minAge = 12;
+      pregnancySafe = null;
+      allergyNotes = [];
+      dosageInstructions = "Tilt head, instill 5-10 drops, keep in ear for several minutes, flush gently.";
+      safetyLevel = #safe;
+      warnings = "Do not use if eardrum is perforated.";
+      avoidIf = "Perforated eardrum, ear discharge.";
+      consultDoctorIf = "Ear pain, discharge, or hearing loss occurs.";
+    },
+    {
+      name = "Nasal Saline Spray";
+      brandName = "Simply Saline";
+      symptoms = ["Nasal Congestion", "Stuffy Nose", "Dry Nasal Passages", "Sinus Pressure", "Nasal Irritation"];
+      minAge = 0;
+      pregnancySafe = ?true;
+      allergyNotes = [];
+      dosageInstructions = "Spray 1-3 times per nostril as needed.";
+      safetyLevel = #safe;
+      warnings = "Safe for frequent use. No rebound congestion.";
+      avoidIf = "Allergy to saline.";
+      consultDoctorIf = "Nasal congestion persists more than 10 days.";
+    },
+    {
+      name = "Acetaminophen/Dextromethorphan/Phenylephrine";
+      brandName = "Theraflu";
+      symptoms = ["Cold", "Flu", "Cough", "Fever", "Body Ache", "Sore Throat", "Nasal Congestion"];
+      minAge = 12;
+      pregnancySafe = ?false;
+      allergyNotes = [];
+      dosageInstructions = "Adults: 1 packet every 4 hours. Max 5 packets/day.";
+      safetyLevel = #caution;
+      warnings = "May cause drowsiness and dizziness.";
+      avoidIf = "High blood pressure or thyroid disorder.";
+      consultDoctorIf = "Symptoms persist more than 7 days.";
     },
   ]);
 
@@ -444,6 +821,20 @@ actor {
       severity = #moderate;
       explanation = "Combining two NSAIDs increases the risk of stomach bleeding and kidney problems.";
     },
+    {
+      drug1 = "Nicotine Patch";
+      drug2 = "Nicotine Gum";
+      interactionType = "Drug-Drug";
+      severity = #moderate;
+      explanation = "Combining two nicotine replacement therapies can cause nicotine overdose. Only use one at a time unless directed by a doctor.";
+    },
+    {
+      drug1 = "Oxymetazoline";
+      drug2 = "MAO Inhibitors";
+      interactionType = "Drug-Drug";
+      severity = #severe;
+      explanation = "Can cause dangerously high blood pressure when combined.";
+    },
   ]);
 
   public query ({ caller = _ }) func getRecommendations(symptoms : [Text], age : Nat, pregnancyStatus : Text, allergies : [Text]) : async [OTCMedicine] {
@@ -497,7 +888,7 @@ actor {
       };
     };
 
-    symptomsSet.toArray();
+    symptomsSet.toArray().sort(func(a, b) { Text.compare(a, b) });
   };
 
   public query ({ caller = _ }) func checkInteractions(drugs : [Text]) : async [Interaction] {
