@@ -8,12 +8,26 @@
 
 import { IDL } from '@icp-sdk/core/candid';
 
+export const Severity = IDL.Variant({
+  'mild' : IDL.Null,
+  'severe' : IDL.Null,
+  'moderate' : IDL.Null,
+});
+export const Interaction = IDL.Record({
+  'interactionType' : IDL.Text,
+  'explanation' : IDL.Text,
+  'severity' : Severity,
+  'drug1' : IDL.Text,
+  'drug2' : IDL.Text,
+});
 export const SafetyLevel = IDL.Variant({
   'avoid' : IDL.Null,
   'safe' : IDL.Null,
   'caution' : IDL.Null,
 });
 export const OTCMedicine = IDL.Record({
+  'consultDoctorIf' : IDL.Text,
+  'avoidIf' : IDL.Text,
   'name' : IDL.Text,
   'minAge' : IDL.Nat,
   'allergyNotes' : IDL.Vec(IDL.Text),
@@ -26,6 +40,11 @@ export const OTCMedicine = IDL.Record({
 });
 
 export const idlService = IDL.Service({
+  'checkInteractions' : IDL.Func(
+      [IDL.Vec(IDL.Text)],
+      [IDL.Vec(Interaction)],
+      ['query'],
+    ),
   'getAllMedicines' : IDL.Func([], [IDL.Vec(OTCMedicine)], ['query']),
   'getAllSymptoms' : IDL.Func([], [IDL.Vec(IDL.Text)], ['query']),
   'getRecommendations' : IDL.Func(
@@ -38,12 +57,26 @@ export const idlService = IDL.Service({
 export const idlInitArgs = [];
 
 export const idlFactory = ({ IDL }) => {
+  const Severity = IDL.Variant({
+    'mild' : IDL.Null,
+    'severe' : IDL.Null,
+    'moderate' : IDL.Null,
+  });
+  const Interaction = IDL.Record({
+    'interactionType' : IDL.Text,
+    'explanation' : IDL.Text,
+    'severity' : Severity,
+    'drug1' : IDL.Text,
+    'drug2' : IDL.Text,
+  });
   const SafetyLevel = IDL.Variant({
     'avoid' : IDL.Null,
     'safe' : IDL.Null,
     'caution' : IDL.Null,
   });
   const OTCMedicine = IDL.Record({
+    'consultDoctorIf' : IDL.Text,
+    'avoidIf' : IDL.Text,
     'name' : IDL.Text,
     'minAge' : IDL.Nat,
     'allergyNotes' : IDL.Vec(IDL.Text),
@@ -56,6 +89,11 @@ export const idlFactory = ({ IDL }) => {
   });
   
   return IDL.Service({
+    'checkInteractions' : IDL.Func(
+        [IDL.Vec(IDL.Text)],
+        [IDL.Vec(Interaction)],
+        ['query'],
+      ),
     'getAllMedicines' : IDL.Func([], [IDL.Vec(OTCMedicine)], ['query']),
     'getAllSymptoms' : IDL.Func([], [IDL.Vec(IDL.Text)], ['query']),
     'getRecommendations' : IDL.Func(

@@ -90,6 +90,8 @@ export class ExternalBlob {
     }
 }
 export interface OTCMedicine {
+    consultDoctorIf: string;
+    avoidIf: string;
     name: string;
     minAge: bigint;
     allergyNotes: Array<string>;
@@ -100,31 +102,58 @@ export interface OTCMedicine {
     brandName: string;
     dosageInstructions: string;
 }
+export interface Interaction {
+    interactionType: string;
+    explanation: string;
+    severity: Severity;
+    drug1: string;
+    drug2: string;
+}
 export enum SafetyLevel {
     avoid = "avoid",
     safe = "safe",
     caution = "caution"
 }
+export enum Severity {
+    mild = "mild",
+    severe = "severe",
+    moderate = "moderate"
+}
 export interface backendInterface {
+    checkInteractions(drugs: Array<string>): Promise<Array<Interaction>>;
     getAllMedicines(): Promise<Array<OTCMedicine>>;
     getAllSymptoms(): Promise<Array<string>>;
     getRecommendations(symptoms: Array<string>, age: bigint, pregnancyStatus: string, allergies: Array<string>): Promise<Array<OTCMedicine>>;
 }
-import type { OTCMedicine as _OTCMedicine, SafetyLevel as _SafetyLevel } from "./declarations/backend.did.d.ts";
+import type { Interaction as _Interaction, OTCMedicine as _OTCMedicine, SafetyLevel as _SafetyLevel, Severity as _Severity } from "./declarations/backend.did.d.ts";
 export class Backend implements backendInterface {
     constructor(private actor: ActorSubclass<_SERVICE>, private _uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, private _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, private processError?: (error: unknown) => never){}
-    async getAllMedicines(): Promise<Array<OTCMedicine>> {
+    async checkInteractions(arg0: Array<string>): Promise<Array<Interaction>> {
         if (this.processError) {
             try {
-                const result = await this.actor.getAllMedicines();
+                const result = await this.actor.checkInteractions(arg0);
                 return from_candid_vec_n1(this._uploadFile, this._downloadFile, result);
             } catch (e) {
                 this.processError(e);
                 throw new Error("unreachable");
             }
         } else {
-            const result = await this.actor.getAllMedicines();
+            const result = await this.actor.checkInteractions(arg0);
             return from_candid_vec_n1(this._uploadFile, this._downloadFile, result);
+        }
+    }
+    async getAllMedicines(): Promise<Array<OTCMedicine>> {
+        if (this.processError) {
+            try {
+                const result = await this.actor.getAllMedicines();
+                return from_candid_vec_n6(this._uploadFile, this._downloadFile, result);
+            } catch (e) {
+                this.processError(e);
+                throw new Error("unreachable");
+            }
+        } else {
+            const result = await this.actor.getAllMedicines();
+            return from_candid_vec_n6(this._uploadFile, this._downloadFile, result);
         }
     }
     async getAllSymptoms(): Promise<Array<string>> {
@@ -145,27 +174,56 @@ export class Backend implements backendInterface {
         if (this.processError) {
             try {
                 const result = await this.actor.getRecommendations(arg0, arg1, arg2, arg3);
-                return from_candid_vec_n1(this._uploadFile, this._downloadFile, result);
+                return from_candid_vec_n6(this._uploadFile, this._downloadFile, result);
             } catch (e) {
                 this.processError(e);
                 throw new Error("unreachable");
             }
         } else {
             const result = await this.actor.getRecommendations(arg0, arg1, arg2, arg3);
-            return from_candid_vec_n1(this._uploadFile, this._downloadFile, result);
+            return from_candid_vec_n6(this._uploadFile, this._downloadFile, result);
         }
     }
 }
-function from_candid_OTCMedicine_n2(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: _OTCMedicine): OTCMedicine {
+function from_candid_Interaction_n2(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: _Interaction): Interaction {
     return from_candid_record_n3(_uploadFile, _downloadFile, value);
 }
-function from_candid_SafetyLevel_n4(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: _SafetyLevel): SafetyLevel {
+function from_candid_OTCMedicine_n7(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: _OTCMedicine): OTCMedicine {
+    return from_candid_record_n8(_uploadFile, _downloadFile, value);
+}
+function from_candid_SafetyLevel_n9(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: _SafetyLevel): SafetyLevel {
+    return from_candid_variant_n10(_uploadFile, _downloadFile, value);
+}
+function from_candid_Severity_n4(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: _Severity): Severity {
     return from_candid_variant_n5(_uploadFile, _downloadFile, value);
 }
-function from_candid_opt_n6(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: [] | [boolean]): boolean | null {
+function from_candid_opt_n11(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: [] | [boolean]): boolean | null {
     return value.length === 0 ? null : value[0];
 }
 function from_candid_record_n3(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: {
+    interactionType: string;
+    explanation: string;
+    severity: _Severity;
+    drug1: string;
+    drug2: string;
+}): {
+    interactionType: string;
+    explanation: string;
+    severity: Severity;
+    drug1: string;
+    drug2: string;
+} {
+    return {
+        interactionType: value.interactionType,
+        explanation: value.explanation,
+        severity: from_candid_Severity_n4(_uploadFile, _downloadFile, value.severity),
+        drug1: value.drug1,
+        drug2: value.drug2
+    };
+}
+function from_candid_record_n8(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: {
+    consultDoctorIf: string;
+    avoidIf: string;
     name: string;
     minAge: bigint;
     allergyNotes: Array<string>;
@@ -176,6 +234,8 @@ function from_candid_record_n3(_uploadFile: (file: ExternalBlob) => Promise<Uint
     brandName: string;
     dosageInstructions: string;
 }): {
+    consultDoctorIf: string;
+    avoidIf: string;
     name: string;
     minAge: bigint;
     allergyNotes: Array<string>;
@@ -187,18 +247,20 @@ function from_candid_record_n3(_uploadFile: (file: ExternalBlob) => Promise<Uint
     dosageInstructions: string;
 } {
     return {
+        consultDoctorIf: value.consultDoctorIf,
+        avoidIf: value.avoidIf,
         name: value.name,
         minAge: value.minAge,
         allergyNotes: value.allergyNotes,
         warnings: value.warnings,
-        safetyLevel: from_candid_SafetyLevel_n4(_uploadFile, _downloadFile, value.safetyLevel),
-        pregnancySafe: record_opt_to_undefined(from_candid_opt_n6(_uploadFile, _downloadFile, value.pregnancySafe)),
+        safetyLevel: from_candid_SafetyLevel_n9(_uploadFile, _downloadFile, value.safetyLevel),
+        pregnancySafe: record_opt_to_undefined(from_candid_opt_n11(_uploadFile, _downloadFile, value.pregnancySafe)),
         symptoms: value.symptoms,
         brandName: value.brandName,
         dosageInstructions: value.dosageInstructions
     };
 }
-function from_candid_variant_n5(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: {
+function from_candid_variant_n10(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: {
     avoid: null;
 } | {
     safe: null;
@@ -207,8 +269,20 @@ function from_candid_variant_n5(_uploadFile: (file: ExternalBlob) => Promise<Uin
 }): SafetyLevel {
     return "avoid" in value ? SafetyLevel.avoid : "safe" in value ? SafetyLevel.safe : "caution" in value ? SafetyLevel.caution : value;
 }
-function from_candid_vec_n1(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: Array<_OTCMedicine>): Array<OTCMedicine> {
-    return value.map((x)=>from_candid_OTCMedicine_n2(_uploadFile, _downloadFile, x));
+function from_candid_variant_n5(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: {
+    mild: null;
+} | {
+    severe: null;
+} | {
+    moderate: null;
+}): Severity {
+    return "mild" in value ? Severity.mild : "severe" in value ? Severity.severe : "moderate" in value ? Severity.moderate : value;
+}
+function from_candid_vec_n1(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: Array<_Interaction>): Array<Interaction> {
+    return value.map((x)=>from_candid_Interaction_n2(_uploadFile, _downloadFile, x));
+}
+function from_candid_vec_n6(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: Array<_OTCMedicine>): Array<OTCMedicine> {
+    return value.map((x)=>from_candid_OTCMedicine_n7(_uploadFile, _downloadFile, x));
 }
 export interface CreateActorOptions {
     agent?: Agent;

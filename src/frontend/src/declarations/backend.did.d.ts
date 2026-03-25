@@ -10,7 +10,16 @@ import type { ActorMethod } from '@icp-sdk/core/agent';
 import type { IDL } from '@icp-sdk/core/candid';
 import type { Principal } from '@icp-sdk/core/principal';
 
+export interface Interaction {
+  'interactionType' : string,
+  'explanation' : string,
+  'severity' : Severity,
+  'drug1' : string,
+  'drug2' : string,
+}
 export interface OTCMedicine {
+  'consultDoctorIf' : string,
+  'avoidIf' : string,
   'name' : string,
   'minAge' : bigint,
   'allergyNotes' : Array<string>,
@@ -24,7 +33,11 @@ export interface OTCMedicine {
 export type SafetyLevel = { 'avoid' : null } |
   { 'safe' : null } |
   { 'caution' : null };
+export type Severity = { 'mild' : null } |
+  { 'severe' : null } |
+  { 'moderate' : null };
 export interface _SERVICE {
+  'checkInteractions' : ActorMethod<[Array<string>], Array<Interaction>>,
   'getAllMedicines' : ActorMethod<[], Array<OTCMedicine>>,
   'getAllSymptoms' : ActorMethod<[], Array<string>>,
   'getRecommendations' : ActorMethod<
