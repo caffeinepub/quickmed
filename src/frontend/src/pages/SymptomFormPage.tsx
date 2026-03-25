@@ -42,7 +42,6 @@ export default function SymptomFormPage({
   const getRecommendations = useGetRecommendations();
 
   const [selectedSymptoms, setSelectedSymptoms] = useState<string[]>([]);
-  const [symptomSearch, setSymptomSearch] = useState("");
   const [age, setAge] = useState("");
   const [gender, setGender] = useState("");
   const [pregnancyStatus, setPregnancyStatus] = useState("not_pregnant");
@@ -69,10 +68,6 @@ export default function SymptomFormPage({
   const removeAllergy = (a: string) => {
     setAllergies((prev) => prev.filter((x) => x !== a));
   };
-
-  const filteredSymptoms = (allSymptoms ?? []).filter((s) =>
-    s.toLowerCase().includes(symptomSearch.toLowerCase()),
-  );
 
   const canSubmit =
     selectedSymptoms.length > 0 && age.trim() !== "" && Number(age) > 0;
@@ -126,20 +121,19 @@ export default function SymptomFormPage({
         >
           {/* Symptoms */}
           <section>
-            <Label className="text-base font-semibold mb-3 block">
-              Symptoms <span className="text-destructive">*</span>
-            </Label>
-
-            {/* Symptom search */}
-            <div className="relative max-w-md mb-3">
-              <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground pointer-events-none" />
-              <Input
-                placeholder="Search symptoms..."
-                value={symptomSearch}
-                onChange={(e) => setSymptomSearch(e.target.value)}
-                className="pl-9"
-                data-ocid="form.search_input"
-              />
+            <div className="flex items-center justify-between mb-3">
+              <Label className="text-base font-semibold">
+                Symptoms <span className="text-destructive">*</span>
+              </Label>
+              {selectedSymptoms.length > 0 && (
+                <button
+                  type="button"
+                  onClick={() => setSelectedSymptoms([])}
+                  className="text-xs text-muted-foreground hover:text-destructive transition-colors"
+                >
+                  Clear all ({selectedSymptoms.length})
+                </button>
+              )}
             </div>
 
             {symptomsLoading ? (
@@ -152,7 +146,7 @@ export default function SymptomFormPage({
               </div>
             ) : (
               <div className="flex flex-wrap gap-2" data-ocid="form.panel">
-                {filteredSymptoms.map((symptom) => (
+                {(allSymptoms ?? []).map((symptom) => (
                   <button
                     key={symptom}
                     type="button"
@@ -167,11 +161,6 @@ export default function SymptomFormPage({
                     {symptom}
                   </button>
                 ))}
-                {filteredSymptoms.length === 0 && (
-                  <p className="text-sm text-muted-foreground">
-                    No symptoms match your search.
-                  </p>
-                )}
               </div>
             )}
 
